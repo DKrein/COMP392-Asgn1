@@ -84,15 +84,18 @@ function init() {
 	
     // Add a SpotLight to the scene
     spotLight = new SpotLight(0xffffff);
-    spotLight.position.set(40, 60, 20);
+    spotLight.position.set(-40, 60, 20);
     spotLight.castShadow = true;
     scene.add(spotLight);
     console.log("Added a SpotLight Light to Scene");
-
+    
+    // Add objects to the scene
     cubeMaterial = new LambertMaterial({ color: 0x44ff44 });
+    //length, height, width
     cubeGeometry = new CubeGeometry(5, 8, 3);
     cube = new Mesh(cubeGeometry, cubeMaterial);
     cube.position.y = 4;
+    cube.position.z = 0;
     cube.castShadow = true;
     scene.add(cube);
     console.log("Added a Cube Primitive to the Scene");
@@ -204,7 +207,7 @@ function setupRenderer(): void {
 function setupCamera(): void {
     //camera = new PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera = new PerspectiveCamera(85, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.x = 30;
+    camera.position.x = -30;
     camera.position.y = 20;
     camera.position.z = 0;
     camera.lookAt(scene.position);
