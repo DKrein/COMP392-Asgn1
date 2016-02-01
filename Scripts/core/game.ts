@@ -34,7 +34,6 @@ var scene: Scene;
 var renderer: Renderer;
 var camera: PerspectiveCamera;
 var axes: AxisHelper;
-var cube: Mesh;
 var plane: Mesh;
 var sphere: Mesh;
 var ambientLight: AmbientLight;
@@ -49,6 +48,15 @@ var stats: Stats;
 var step: number = 0;
 var cubeMaterial: LambertMaterial;
 var cubeGeometry: CubeGeometry;
+//BODY PARTS
+var head: Mesh;
+var torso: Mesh;
+var leftArm: Mesh;
+var rightArm: Mesh;
+var leftLeg: Mesh;
+var rightLeg: Mesh;
+var leftFoot: Mesh;
+var rightFoot: Mesh;
 
 function init() {
     // Instantiate a new Scene object
@@ -61,13 +69,13 @@ function init() {
     setupCamera(); 
 	
     // add an axis helper to the scene
-    axes = new AxisHelper(20);
+    axes = new AxisHelper(80);
     scene.add(axes);
     console.log("Added Axis Helper to scene...");
     
     //Add a Plane to the Scene
     plane = new gameObject(
-        new PlaneGeometry(60, 80, 1, 1),
+        new PlaneGeometry(40, 80, 1, 1),
         new LambertMaterial({ color: 0xffffff }),
         0, 0, 0);
 
@@ -76,7 +84,6 @@ function init() {
     scene.add(plane);
     console.log("Added Plane Primitive to scene...");
      
-    
     // Add an AmbientLight to the scene
     ambientLight = new AmbientLight(0x090909);
     scene.add(ambientLight);
@@ -90,84 +97,55 @@ function init() {
     console.log("Added a SpotLight Light to Scene");
     
     // Add objects to the scene
-    cubeMaterial = new LambertMaterial({ color: 0x6666ff });
-    //length, height, width
-    cubeGeometry = new CubeGeometry(2, 6, 1);
-    cube = new Mesh(cubeGeometry, cubeMaterial);
-    cube.position.y = 3;
-    cube.position.z = 2;
-    cube.castShadow = true;
-    scene.add(cube);
+    //length, height, width - color - front/back, up/down, left/rigth
+    head = new gameObject(new CubeGeometry(4, 3, 4), new LambertMaterial({color: 0xffcc99}), 0, 14, 0);
+    head.castShadow = true;
+    scene.add(head);
+    console.log("Head added to the scene");    
+     
+    torso = new gameObject(new CubeGeometry(4, 6, 7), new LambertMaterial({color: 0xff6666}), 0, 9, 0);  
+    torso.castShadow = true;
+    scene.add(torso);
+    console.log("Body added to the scene");
+     
+    rightLeg = new gameObject(new CubeGeometry(2, 6, 1), new LambertMaterial({color: 0x6666ff}), 0, 3, 2);
+    rightLeg.castShadow = true;
+    scene.add(rightLeg);
     console.log("Right leg added to the scene");    
     
-    cubeMaterial = new LambertMaterial({ color: 0x6666ff });
-    cubeGeometry = new CubeGeometry(2, 6, 1);
-    cube = new Mesh(cubeGeometry, cubeMaterial);
-    cube.position.y = 3;
-    cube.position.z = -2;
-    cube.castShadow = true;
-    scene.add(cube);
+    leftLeg = new gameObject(new CubeGeometry(2, 6, 1), new LambertMaterial({color: 0x6666ff}), 0, 3, -2);
+    leftLeg.castShadow = true;
+    scene.add(leftLeg);
     console.log("Left leg added to the scene");
 
-    cubeMaterial = new LambertMaterial({ color: 0x000000 });
-    cubeGeometry = new CubeGeometry(3, 2, 1);
-    cube = new Mesh(cubeGeometry, cubeMaterial);
-    cube.position.x = -2;
-    cube.position.y = 1;
-    cube.position.z = 2;
-    cube.castShadow = true;
-    scene.add(cube);
+    rightFoot = new gameObject(new CubeGeometry(3, 2, 1), new LambertMaterial({color: 0x000000}), -2, 1, 2);    
+    rightFoot.castShadow = true;
+    scene.add(rightFoot);
     console.log("Right foot added to the scene");
     
-    cubeMaterial = new LambertMaterial({ color: 0x000000 });
-    cubeGeometry = new CubeGeometry(3, 2, 1);
-    cube = new Mesh(cubeGeometry, cubeMaterial);
-    cube.position.x = -2;
-    cube.position.y = 1;
-    cube.position.z = -2;
-    cube.castShadow = true;
-    scene.add(cube);
-    console.log("Left foot added to the scene");
-    
-    cubeMaterial = new LambertMaterial({ color: 0xff6666 });
-    cubeGeometry = new CubeGeometry(4, 6, 7);
-    cube = new Mesh(cubeGeometry, cubeMaterial);
-    cube.position.y = 9;
-    cube.castShadow = true;
-    scene.add(cube);
-    console.log("Body added to the scene");
-    
-    cubeMaterial = new LambertMaterial({ color: 0xffcccc });
-    //length, height, width
-    cubeGeometry = new CubeGeometry(2, 6, 1);
-    cube = new Mesh(cubeGeometry, cubeMaterial);
-    cube.position.y = 9;
-    cube.position.z = 4.4;
-    cube.castShadow = true;
-    scene.add(cube);
+    leftFoot = new gameObject(new CubeGeometry(3, 2, 1), new LambertMaterial({color: 0x000000}), -2, 1, -2);    
+    leftFoot.castShadow = true;
+    scene.add(leftFoot);
+    console.log("Left foot added to the scene");   
+
+    rightArm = new gameObject(new CubeGeometry(2, 6, 1), new LambertMaterial({color: 0xffcccc}), 0, 9, 4.4);  
+    rightArm.castShadow = true;
+    scene.add(rightArm);
     console.log("Right arm added to the scene");    
     
-    cubeMaterial = new LambertMaterial({ color: 0xffcccc });
-    cubeGeometry = new CubeGeometry(2, 6, 1);
-    cube = new Mesh(cubeGeometry, cubeMaterial);
-    cube.position.y = 9;
-    cube.position.z = -4.4;
-    cube.castShadow = true;
-    scene.add(cube);
+    leftArm = new gameObject(new CubeGeometry(2, 6, 1), new LambertMaterial({color: 0xffcccc}), 0, 9, -4.4);  
+    leftArm.castShadow = true;
+    scene.add(leftArm);
     console.log("Left arm added to the scene");
-    
-     cubeMaterial = new LambertMaterial({ color: 0xffcc99 });
-    cubeGeometry = new CubeGeometry(4, 3, 4);
-    cube = new Mesh(cubeGeometry, cubeMaterial);
-    cube.position.y = 14;
-    cube.castShadow = true;
-    scene.add(cube);
-    console.log("Head added to the scene");
-    
     
     // add controls
     gui = new GUI();
-    control = new Control(cube);
+    
+    
+    //control = new Control(cube);
+    //addControl(control);
+    
+    control = new Control(camera);
     addControl(control);
 
     // Add framerate stats
@@ -188,8 +166,9 @@ function onResize(): void {
 }
 
 function addControl(controlObject: Control): void {
-    /*
+    
     // Add Scale Folder
+     /*
     guiScale = gui.addFolder('scale');
     guiScale.add(controlObject, 'scaleX', 0, 5);
     guiScale.add(controlObject, 'scaleY', 0, 5);
@@ -200,6 +179,7 @@ function addControl(controlObject: Control): void {
     var contX = guiPosition.add(controlObject, 'positionX', -10, 10);
     var contY = guiPosition.add(controlObject, 'positionY', -4, 20);
     var contZ = guiPosition.add(controlObject, 'positionZ', -10, 10);
+    
 
     contX.listen();
     contX.onChange((value) => {
@@ -215,6 +195,7 @@ function addControl(controlObject: Control): void {
     contZ.onChange((value) => {
         cube.position.z = controlObject.positionZ;
     });
+    */
     
     // Add Rotation Folder
     guiRotation = gui.addFolder('rotation');
@@ -223,12 +204,13 @@ function addControl(controlObject: Control): void {
     guiRotation.add(controlObject,'rotationZ',-4, 4);
     
     // Add Translate Folder
-    guiTranslate = gui.addFolder('translate');
+    /*guiTranslate = gui.addFolder('translate');
     guiTranslate.add(controlObject,'translateX',-10, 10);
     guiTranslate.add(controlObject,'translateY',-10, 10);
     guiTranslate.add(controlObject,'translateZ',-10, 10);
     guiTranslate.add(controlObject,'translate');
     */
+    
 }
 
 // Add Stats Object to the Scene
@@ -244,13 +226,15 @@ function addStatsObject() {
 // Setup main game loop
 function gameLoop(): void {
     stats.update();
-
-    cube.rotation.x=control.rotationX;
-    cube.rotation.y=control.rotationY;
-    cube.rotation.z=control.rotationZ;
     
-    cube.scale.set(control.scaleX, control.scaleY, control.scaleZ);
-
+    head.rotation.set(control.rotationX, control.rotationY, control.rotationZ);
+    torso.rotation.set(control.rotationX, control.rotationY, control.rotationZ);
+    leftArm.rotation.set(control.rotationX, control.rotationY, control.rotationZ);
+    rightArm.rotation.set(control.rotationX, control.rotationY, control.rotationZ);
+    leftLeg.rotation.set(control.rotationX, control.rotationY, control.rotationZ);
+    rightLeg.rotation.set(control.rotationX, control.rotationY, control.rotationZ);
+    leftFoot.rotation.set(control.rotationX, control.rotationY, control.rotationZ);
+    rightFoot.rotation.set(control.rotationX, control.rotationY, control.rotationZ);    
 
     // render using requestAnimationFrame
     requestAnimationFrame(gameLoop);
@@ -274,7 +258,7 @@ function setupCamera(): void {
     camera = new PerspectiveCamera(85, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.x = -30;
     camera.position.y = 20;
-    camera.position.z = 0;
+    camera.position.z = 5;
     camera.lookAt(scene.position);
     console.log("Finished setting up Camera...");
 }
