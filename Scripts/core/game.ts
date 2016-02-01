@@ -59,6 +59,8 @@ var leftFoot: Mesh;
 var rightFoot: Mesh;
 var group: Mesh;
 
+var ambientColour:string;
+
 function init() {
     // Instantiate a new Scene object
     scene = new Scene();
@@ -192,7 +194,6 @@ function gameLoop(): void {
     group.rotation.x += control.rotationX;
     group.rotation.y += control.rotationY;
     group.rotation.z += control.rotationZ;
-     
 
     // render using requestAnimationFrame
     requestAnimationFrame(gameLoop);

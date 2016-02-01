@@ -43,6 +43,7 @@ var rightLeg;
 var leftFoot;
 var rightFoot;
 var group;
+var ambientColour;
 function init() {
     // Instantiate a new Scene object
     scene = new Scene();
