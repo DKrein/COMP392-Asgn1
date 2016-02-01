@@ -121,9 +121,9 @@ function onResize() {
 function addControl(controlObject) {
     // Add Rotation Folder
     guiRotation = gui.addFolder('rotation');
-    guiRotation.add(controlObject, 'rotationX', -4, 4);
-    guiRotation.add(controlObject, 'rotationY', -4, 4);
-    guiRotation.add(controlObject, 'rotationZ', -4, 4);
+    guiRotation.add(controlObject, 'rotationX', 0, 1);
+    guiRotation.add(controlObject, 'rotationY', 0, 1);
+    guiRotation.add(controlObject, 'rotationZ', 0, 1);
 }
 // Add Stats Object to the Scene
 function addStatsObject() {
@@ -137,17 +137,10 @@ function addStatsObject() {
 // Setup main game loop
 function gameLoop() {
     stats.update();
-    group.rotation.set(control.rotationX, control.rotationY, control.rotationZ);
-    /*
-    head.rotation.set(control.rotationX, control.rotationY, control.rotationZ);
-    torso.rotation.set(control.rotationX, control.rotationY, control.rotationZ);
-    leftArm.rotation.set(control.rotationX, control.rotationY, control.rotationZ);
-    rightArm.rotation.set(control.rotationX, control.rotationY, control.rotationZ);
-    leftLeg.rotation.set(control.rotationX, control.rotationY, control.rotationZ);
-    rightLeg.rotation.set(control.rotationX, control.rotationY, control.rotationZ);
-    leftFoot.rotation.set(control.rotationX, control.rotationY, control.rotationZ);
-    rightFoot.rotation.set(control.rotationX, control.rotationY, control.rotationZ);
-    */
+    //group.rotation.set(control.rotationX, control.rotationY, control.rotationZ);
+    group.rotation.x += control.rotationX;
+    group.rotation.y += control.rotationY;
+    group.rotation.z += control.rotationZ;
     // render using requestAnimationFrame
     requestAnimationFrame(gameLoop);
     // render the scene
