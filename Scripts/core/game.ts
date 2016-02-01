@@ -90,15 +90,80 @@ function init() {
     console.log("Added a SpotLight Light to Scene");
     
     // Add objects to the scene
-    cubeMaterial = new LambertMaterial({ color: 0x44ff44 });
+    cubeMaterial = new LambertMaterial({ color: 0x6666ff });
     //length, height, width
-    cubeGeometry = new CubeGeometry(5, 8, 3);
+    cubeGeometry = new CubeGeometry(2, 6, 1);
     cube = new Mesh(cubeGeometry, cubeMaterial);
-    cube.position.y = 4;
-    cube.position.z = 0;
+    cube.position.y = 3;
+    cube.position.z = 2;
     cube.castShadow = true;
     scene.add(cube);
-    console.log("Added a Cube Primitive to the Scene");
+    console.log("Right leg added to the scene");    
+    
+    cubeMaterial = new LambertMaterial({ color: 0x6666ff });
+    cubeGeometry = new CubeGeometry(2, 6, 1);
+    cube = new Mesh(cubeGeometry, cubeMaterial);
+    cube.position.y = 3;
+    cube.position.z = -2;
+    cube.castShadow = true;
+    scene.add(cube);
+    console.log("Left leg added to the scene");
+
+    cubeMaterial = new LambertMaterial({ color: 0x000000 });
+    cubeGeometry = new CubeGeometry(3, 2, 1);
+    cube = new Mesh(cubeGeometry, cubeMaterial);
+    cube.position.x = -2;
+    cube.position.y = 1;
+    cube.position.z = 2;
+    cube.castShadow = true;
+    scene.add(cube);
+    console.log("Right foot added to the scene");
+    
+    cubeMaterial = new LambertMaterial({ color: 0x000000 });
+    cubeGeometry = new CubeGeometry(3, 2, 1);
+    cube = new Mesh(cubeGeometry, cubeMaterial);
+    cube.position.x = -2;
+    cube.position.y = 1;
+    cube.position.z = -2;
+    cube.castShadow = true;
+    scene.add(cube);
+    console.log("Left foot added to the scene");
+    
+    cubeMaterial = new LambertMaterial({ color: 0xff6666 });
+    cubeGeometry = new CubeGeometry(4, 6, 7);
+    cube = new Mesh(cubeGeometry, cubeMaterial);
+    cube.position.y = 9;
+    cube.castShadow = true;
+    scene.add(cube);
+    console.log("Body added to the scene");
+    
+    cubeMaterial = new LambertMaterial({ color: 0xffcccc });
+    //length, height, width
+    cubeGeometry = new CubeGeometry(2, 6, 1);
+    cube = new Mesh(cubeGeometry, cubeMaterial);
+    cube.position.y = 9;
+    cube.position.z = 4.4;
+    cube.castShadow = true;
+    scene.add(cube);
+    console.log("Right arm added to the scene");    
+    
+    cubeMaterial = new LambertMaterial({ color: 0xffcccc });
+    cubeGeometry = new CubeGeometry(2, 6, 1);
+    cube = new Mesh(cubeGeometry, cubeMaterial);
+    cube.position.y = 9;
+    cube.position.z = -4.4;
+    cube.castShadow = true;
+    scene.add(cube);
+    console.log("Left arm added to the scene");
+    
+     cubeMaterial = new LambertMaterial({ color: 0xffcc99 });
+    cubeGeometry = new CubeGeometry(4, 3, 4);
+    cube = new Mesh(cubeGeometry, cubeMaterial);
+    cube.position.y = 14;
+    cube.castShadow = true;
+    scene.add(cube);
+    console.log("Head added to the scene");
+    
     
     // add controls
     gui = new GUI();
