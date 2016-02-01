@@ -42,6 +42,7 @@ var leftLeg;
 var rightLeg;
 var leftFoot;
 var rightFoot;
+var group;
 function init() {
     // Instantiate a new Scene object
     scene = new Scene();
@@ -72,36 +73,32 @@ function init() {
     //length, height, width - color - front/back, up/down, left/rigth
     head = new gameObject(new CubeGeometry(4, 3, 4), new LambertMaterial({ color: 0xffcc99 }), 0, 14, 0);
     head.castShadow = true;
-    scene.add(head);
-    console.log("Head added to the scene");
     torso = new gameObject(new CubeGeometry(4, 6, 7), new LambertMaterial({ color: 0xff6666 }), 0, 9, 0);
     torso.castShadow = true;
-    scene.add(torso);
-    console.log("Body added to the scene");
     rightLeg = new gameObject(new CubeGeometry(2, 6, 1), new LambertMaterial({ color: 0x6666ff }), 0, 3, 2);
     rightLeg.castShadow = true;
-    scene.add(rightLeg);
-    console.log("Right leg added to the scene");
     leftLeg = new gameObject(new CubeGeometry(2, 6, 1), new LambertMaterial({ color: 0x6666ff }), 0, 3, -2);
     leftLeg.castShadow = true;
-    scene.add(leftLeg);
-    console.log("Left leg added to the scene");
     rightFoot = new gameObject(new CubeGeometry(3, 2, 1), new LambertMaterial({ color: 0x000000 }), -2, 1, 2);
     rightFoot.castShadow = true;
-    scene.add(rightFoot);
-    console.log("Right foot added to the scene");
     leftFoot = new gameObject(new CubeGeometry(3, 2, 1), new LambertMaterial({ color: 0x000000 }), -2, 1, -2);
     leftFoot.castShadow = true;
-    scene.add(leftFoot);
-    console.log("Left foot added to the scene");
     rightArm = new gameObject(new CubeGeometry(2, 6, 1), new LambertMaterial({ color: 0xffcccc }), 0, 9, 4.4);
     rightArm.castShadow = true;
-    scene.add(rightArm);
-    console.log("Right arm added to the scene");
     leftArm = new gameObject(new CubeGeometry(2, 6, 1), new LambertMaterial({ color: 0xffcccc }), 0, 9, -4.4);
     leftArm.castShadow = true;
-    scene.add(leftArm);
-    console.log("Left arm added to the scene");
+    console.log("Cubeman parts created");
+    group = new THREE.Object3D();
+    group.add(head);
+    group.add(torso);
+    group.add(leftArm);
+    group.add(rightArm);
+    group.add(leftLeg);
+    group.add(rightLeg);
+    group.add(leftFoot);
+    group.add(rightFoot);
+    scene.add(group);
+    console.log("Cubeman added to the scene");
     // add controls
     gui = new GUI();
     //control = new Control(cube);
@@ -122,47 +119,11 @@ function onResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 function addControl(controlObject) {
-    // Add Scale Folder
-    /*
-   guiScale = gui.addFolder('scale');
-   guiScale.add(controlObject, 'scaleX', 0, 5);
-   guiScale.add(controlObject, 'scaleY', 0, 5);
-   guiScale.add(controlObject, 'scaleZ', 0, 5);
-
-   // Add Position Folder
-   guiPosition = gui.addFolder('position');
-   var contX = guiPosition.add(controlObject, 'positionX', -10, 10);
-   var contY = guiPosition.add(controlObject, 'positionY', -4, 20);
-   var contZ = guiPosition.add(controlObject, 'positionZ', -10, 10);
-   
-
-   contX.listen();
-   contX.onChange((value) => {
-       cube.position.x = controlObject.positionX;
-   });
-
-   contY.listen();
-   contY.onChange((value) => {
-       cube.position.y = controlObject.positionY;
-   });
-
-   contZ.listen();
-   contZ.onChange((value) => {
-       cube.position.z = controlObject.positionZ;
-   });
-   */
     // Add Rotation Folder
     guiRotation = gui.addFolder('rotation');
     guiRotation.add(controlObject, 'rotationX', -4, 4);
     guiRotation.add(controlObject, 'rotationY', -4, 4);
     guiRotation.add(controlObject, 'rotationZ', -4, 4);
-    // Add Translate Folder
-    /*guiTranslate = gui.addFolder('translate');
-    guiTranslate.add(controlObject,'translateX',-10, 10);
-    guiTranslate.add(controlObject,'translateY',-10, 10);
-    guiTranslate.add(controlObject,'translateZ',-10, 10);
-    guiTranslate.add(controlObject,'translate');
-    */
 }
 // Add Stats Object to the Scene
 function addStatsObject() {
@@ -176,6 +137,8 @@ function addStatsObject() {
 // Setup main game loop
 function gameLoop() {
     stats.update();
+    group.rotation.set(control.rotationX, control.rotationY, control.rotationZ);
+    /*
     head.rotation.set(control.rotationX, control.rotationY, control.rotationZ);
     torso.rotation.set(control.rotationX, control.rotationY, control.rotationZ);
     leftArm.rotation.set(control.rotationX, control.rotationY, control.rotationZ);
@@ -184,6 +147,7 @@ function gameLoop() {
     rightLeg.rotation.set(control.rotationX, control.rotationY, control.rotationZ);
     leftFoot.rotation.set(control.rotationX, control.rotationY, control.rotationZ);
     rightFoot.rotation.set(control.rotationX, control.rotationY, control.rotationZ);
+    */
     // render using requestAnimationFrame
     requestAnimationFrame(gameLoop);
     // render the scene
