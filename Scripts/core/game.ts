@@ -2,6 +2,22 @@
 
 // MAIN GAME FILE
 
+/*
+Author: Douglas Krein
+Last Modified by: Douglas Krein
+Last Modified: 03-02-2016
+File description: 
+- Controls the general game information, like creationg of cubeman and controls.
+
+Revision:
+1 - camera modified
+2 - cube parts added
+3 - colors changed
+4 - code changed to create cubes in one line
+5 - added control to rotate the cube man
+6 - added control to change the colors
+*/
+
 // THREEJS Aliases
 import Scene = THREE.Scene;
 import Renderer = THREE.WebGLRenderer;
@@ -100,30 +116,14 @@ function init() {
     // Add objects to the scene
     //length, height, width - color - front/back, up/down, left/rigth
     head = new gameObject(new CubeGeometry(4, 3, 4), new LambertMaterial({color: 0xffcc99}), 0, 14, 0);
-    head.castShadow = true;
-     
     torso = new gameObject(new CubeGeometry(4, 6, 7), new LambertMaterial({color: 0xff6666}), 0, 9, 0);  
-    torso.castShadow = true;
-     
     rightLeg = new gameObject(new CubeGeometry(2, 6, 1), new LambertMaterial({color: 0x6666ff}), 0, 3, 2);
-    rightLeg.castShadow = true;
-   
     leftLeg = new gameObject(new CubeGeometry(2, 6, 1), new LambertMaterial({color: 0x6666ff}), 0, 3, -2);
-    leftLeg.castShadow = true;
-
     rightFoot = new gameObject(new CubeGeometry(3, 2, 1), new LambertMaterial({color: 0x000000}), -2, 1, 2);    
-    rightFoot.castShadow = true;
-    
     leftFoot = new gameObject(new CubeGeometry(3, 2, 1), new LambertMaterial({color: 0x000000}), -2, 1, -2);    
-    leftFoot.castShadow = true;
-
     rightArm = new gameObject(new CubeGeometry(2, 6, 1), new LambertMaterial({color: 0xffcccc}), 0, 9, 4.4);  
-    rightArm.castShadow = true;
-    
     leftArm = new gameObject(new CubeGeometry(2, 6, 1), new LambertMaterial({color: 0xffcccc}), 0, 9, -4.4);  
-    leftArm.castShadow = true;
     console.log("Cubeman parts created");
-    
     
     group = new THREE.Object3D();
     group.add(head);
@@ -132,6 +132,7 @@ function init() {
     group.add(rightArm);
     group.add(leftLeg);
     group.add(rightLeg);
+    //Feet added for bonus mark :)
     group.add(leftFoot);
     group.add(rightFoot);    
     scene.add(group);
@@ -162,11 +163,13 @@ function onResize(): void {
 
 function addControl(controlObject: Control): void {
     
-    // Add Rotation Folder
+    // Add Rotation Controls
     gui.add(controlObject,'rotationX',0, 1);
     gui.add(controlObject,'rotationY',0, 1);
     gui.add(controlObject,'rotationZ',0, 1);
     gui.add(controlObject,'resetPosition');
+    
+    //Controls used to change the colors
     gui.addColor(controlObject,'feetColor').onChange((color) =>{
        leftFoot.material.color = new Color(color);
        rightFoot.material.color = new Color(color);

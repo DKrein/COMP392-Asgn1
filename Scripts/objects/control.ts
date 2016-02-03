@@ -1,5 +1,18 @@
 /// <reference path="../../typings/tsd.d.ts"/>
 
+/*
+Author: Douglas Krein
+Last Modified by: Douglas Krein
+Last Modified: 03-02-2016
+File description: 
+- Controls the variables of GUI for rotation and colors in the cubeman.
+
+Revision:
+1 - added variables for rotation
+2 - set default rotation as zero
+3 - added cubeman parts colors
+*/
+
 module objects {
     // CONTROL CLASS ++++++++++++++++++++++++++++++++++++++++++
     export class Control { 
