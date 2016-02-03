@@ -4,33 +4,31 @@ module objects {
     // CONTROL CLASS ++++++++++++++++++++++++++++++++++++++++++
     export class Control { 
         //PUBLIC INSTANCE VARIABLES +++++++++++++++++++++++++++
-        public scaleX: number = 1;
-        public scaleY: number = 1;
-        public scaleZ: number = 1;
-        public positionX: number = 0;
-        public positionY: number = 4;
-        public positionZ: number = 0;
         public rotationX: number = 0;
         public rotationY: number = 0;
         public rotationZ: number = 0;
-        public scale: number = 1;
-        public translateX: number = 0;
-        public translateY: number = 0;
-        public translateZ: number = 0;
-        public mesh: Mesh;
+        public feetColor: string;
+        public legsColor: string;
+        public armsColor: string;
+        public torsoColor: string;
+        public headColor: string;
+        public group: Mesh
+        
         // CONSTRUCTOR ++++++++++++++++++++++++++++++++++++++++
-        constructor(mesh: Mesh) {
-            this.mesh = mesh;
+        constructor(defaultColor:string, group: Mesh) {
+           this.feetColor = defaultColor;
+           this.legsColor = defaultColor;
+           this.armsColor = defaultColor;
+           this.torsoColor = defaultColor;
+           this.headColor = defaultColor;
+           this.group = group;     
         }
         
         //PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++
-        public translate(): void {
-            this.mesh.translateX(this.translateX);
-            this.mesh.translateY(this.translateY);
-            this.mesh.translateZ(this.translateZ);
-            this.positionX = this.mesh.position.x;
-            this.positionY = this.mesh.position.y;
-            this.positionZ = this.mesh.position.z;
+        public resetPosition(): void {
+            group.rotation.x = 0;
+            group.rotation.y = 0;
+            group.rotation.z = 0;
         }
     }
 }

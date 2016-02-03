@@ -40,10 +40,8 @@ var ambientLight: AmbientLight;
 var spotLight: SpotLight;
 var control: Control;
 var gui: GUI;
-var guiScale: GUI;
-var guiPosition: GUI;
 var guiRotation: GUI;
-var guiTranslate: GUI;
+var guiColor: GUI;
 var stats: Stats;
 var step: number = 0;
 var cubeMaterial: LambertMaterial;
@@ -59,7 +57,7 @@ var leftFoot: Mesh;
 var rightFoot: Mesh;
 var group: Mesh;
 
-var ambientColour:string;
+var defaultColor:string;
 
 function init() {
     // Instantiate a new Scene object
@@ -140,13 +138,9 @@ function init() {
     console.log("Cubeman added to the scene");
     
     // add controls
-    gui = new GUI();
-    
-    
-    //control = new Control(cube);
-    //addControl(control);
-    
-    control = new Control(camera);
+    defaultColor = "#000000";
+    gui = new GUI();    
+    control = new Control(defaultColor, group);
     addControl(control);
 
     // Add framerate stats
@@ -169,11 +163,30 @@ function onResize(): void {
 function addControl(controlObject: Control): void {
     
     // Add Rotation Folder
-    guiRotation = gui.addFolder('rotation');
-    guiRotation.add(controlObject,'rotationX',0, 1);
-    guiRotation.add(controlObject,'rotationY',0, 1);
-    guiRotation.add(controlObject,'rotationZ',0, 1);
-      
+    gui.add(controlObject,'rotationX',0, 1);
+    gui.add(controlObject,'rotationY',0, 1);
+    gui.add(controlObject,'rotationZ',0, 1);
+    gui.add(controlObject,'resetPosition');
+    gui.addColor(controlObject,'feetColor').onChange((color) =>{
+       leftFoot.material.color = new Color(color);
+       rightFoot.material.color = new Color(color);
+   });
+    gui.addColor(controlObject,'legsColor').onChange((color) =>{
+       leftLeg.material.color = new Color(color);
+       rightLeg.material.color = new Color(color);
+   });
+    gui.addColor(controlObject,'armsColor').onChange((color) =>{
+       leftArm.material.color = new Color(color);
+       rightArm.material.color = new Color(color);
+   });
+    gui.addColor(controlObject,'torsoColor').onChange((color) =>{
+       torso.material.color = new Color(color);
+   });
+    gui.addColor(controlObject,'headColor').onChange((color) =>{
+       head.material.color = new Color(color);
+   });
+   
+     
 }
 
 // Add Stats Object to the Scene

@@ -4,31 +4,23 @@ var objects;
     // CONTROL CLASS ++++++++++++++++++++++++++++++++++++++++++
     var Control = (function () {
         // CONSTRUCTOR ++++++++++++++++++++++++++++++++++++++++
-        function Control(mesh) {
+        function Control(defaultColor, group) {
             //PUBLIC INSTANCE VARIABLES +++++++++++++++++++++++++++
-            this.scaleX = 1;
-            this.scaleY = 1;
-            this.scaleZ = 1;
-            this.positionX = 0;
-            this.positionY = 4;
-            this.positionZ = 0;
             this.rotationX = 0;
             this.rotationY = 0;
             this.rotationZ = 0;
-            this.scale = 1;
-            this.translateX = 0;
-            this.translateY = 0;
-            this.translateZ = 0;
-            this.mesh = mesh;
+            this.feetColor = defaultColor;
+            this.legsColor = defaultColor;
+            this.armsColor = defaultColor;
+            this.torsoColor = defaultColor;
+            this.headColor = defaultColor;
+            this.group = group;
         }
         //PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++
-        Control.prototype.translate = function () {
-            this.mesh.translateX(this.translateX);
-            this.mesh.translateY(this.translateY);
-            this.mesh.translateZ(this.translateZ);
-            this.positionX = this.mesh.position.x;
-            this.positionY = this.mesh.position.y;
-            this.positionZ = this.mesh.position.z;
+        Control.prototype.resetPosition = function () {
+            group.rotation.x = 0;
+            group.rotation.y = 0;
+            group.rotation.z = 0;
         };
         return Control;
     })();

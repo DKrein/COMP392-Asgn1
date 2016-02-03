@@ -12,6 +12,7 @@ var SpotLight = THREE.SpotLight;
 var AmbientLight = THREE.AmbientLight;
 var Control = objects.Control;
 var GUI = dat.GUI;
+var Color = THREE.Color;
 var Point = objects.Point;
 //Custom Game Objects
 var gameObject = objects.gameObject;
@@ -25,10 +26,8 @@ var ambientLight;
 var spotLight;
 var control;
 var gui;
-var guiScale;
-var guiPosition;
 var guiRotation;
-var guiTranslate;
+var guiColor;
 var stats;
 var step = 0;
 var cubeMaterial;
@@ -43,7 +42,7 @@ var rightLeg;
 var leftFoot;
 var rightFoot;
 var group;
-var ambientColour;
+var defaultColor;
 function init() {
     // Instantiate a new Scene object
     scene = new Scene();
@@ -101,10 +100,9 @@ function init() {
     scene.add(group);
     console.log("Cubeman added to the scene");
     // add controls
+    defaultColor = "#000000";
     gui = new GUI();
-    //control = new Control(cube);
-    //addControl(control);
-    control = new Control(camera);
+    control = new Control(defaultColor, group);
     addControl(control);
     // Add framerate stats
     addStatsObject();
@@ -121,10 +119,29 @@ function onResize() {
 }
 function addControl(controlObject) {
     // Add Rotation Folder
-    guiRotation = gui.addFolder('rotation');
-    guiRotation.add(controlObject, 'rotationX', 0, 1);
-    guiRotation.add(controlObject, 'rotationY', 0, 1);
-    guiRotation.add(controlObject, 'rotationZ', 0, 1);
+    //guiRotation = gui.addFolder('rotation');
+    gui.add(controlObject, 'rotationX', 0, 1);
+    gui.add(controlObject, 'rotationY', 0, 1);
+    gui.add(controlObject, 'rotationZ', 0, 1);
+    gui.add(controlObject, 'resetPosition');
+    gui.addColor(controlObject, 'feetColor').onChange(function (color) {
+        leftFoot.material.color = new Color(color);
+        rightFoot.material.color = new Color(color);
+    });
+    gui.addColor(controlObject, 'legsColor').onChange(function (color) {
+        leftLeg.material.color = new Color(color);
+        rightLeg.material.color = new Color(color);
+    });
+    gui.addColor(controlObject, 'armsColor').onChange(function (color) {
+        leftArm.material.color = new Color(color);
+        rightArm.material.color = new Color(color);
+    });
+    gui.addColor(controlObject, 'torsoColor').onChange(function (color) {
+        torso.material.color = new Color(color);
+    });
+    gui.addColor(controlObject, 'headColor').onChange(function (color) {
+        head.material.color = new Color(color);
+    });
 }
 // Add Stats Object to the Scene
 function addStatsObject() {
