@@ -121,8 +121,8 @@ function init() {
     leftLeg = new gameObject(new CubeGeometry(2, 6, 1), new LambertMaterial({color: 0x6666ff}), 0, 3, -2);
     rightFoot = new gameObject(new CubeGeometry(3, 2, 1), new LambertMaterial({color: 0x000000}), -2, 1, 2);    
     leftFoot = new gameObject(new CubeGeometry(3, 2, 1), new LambertMaterial({color: 0x000000}), -2, 1, -2);    
-    rightArm = new gameObject(new CubeGeometry(2, 6, 1), new LambertMaterial({color: 0xffcccc}), 0, 9, 4.4);  
-    leftArm = new gameObject(new CubeGeometry(2, 6, 1), new LambertMaterial({color: 0xffcccc}), 0, 9, -4.4);  
+    rightArm = new gameObject(new CubeGeometry(2, 1, 5), new LambertMaterial({color: 0xffcccc}), 0, 10.5, 6.3);  
+    leftArm = new gameObject(new CubeGeometry(2, 1, 5), new LambertMaterial({color: 0xffcccc}), 0, 10.5, -6.3);  
     console.log("Cubeman parts created");
     
     group = new THREE.Object3D();
